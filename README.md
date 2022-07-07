@@ -2,7 +2,7 @@
 
 待准备
 
-### 1、python基础知识
+### 1、Python基础知识
 
 面经（1）：https://www.nowcoder.com/discuss/927908?type=all&order=recall&pos=&page=1&ncTraceId=&channel=-1&source_id=search_all_nctrack&gio_id=9C38FE811C8D3EC4F710677B0580998C-1657026163296
 
