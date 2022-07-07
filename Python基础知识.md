@@ -57,13 +57,51 @@ Python并发编程：串行 → 并行，提升执行效率
     t.start()
     
     ```
+##### （3）GIL锁（全局解释器锁）
+
+    保证一个进程中同一时刻只有一个线程可以被GPU调用
+    
+    所以在多核CPU的计算机下，在GIL锁下，则需要变成多进程并发，才能高并发
+    
+    高I/O的请求：不太需要CPU，可以多线程
+    
+    高计算的请求：需要CPU，且因为有GIL锁，用多进程
+    
+ ##### （4）线程安全
+ 
+    多个线程同时操作一个东西时候，可能会产生线程不安全，因为线程同步运行
+    
+    （官方一点解释：处理数据有概率有交集 ↑ ）
+    
+    解决方法：手动加锁（线程锁）（加在函数里面）
+    
+    细节：这几个线程要用同一把锁才行，一把锁一个时间只会有一个线程在用
     
     
-
+    有些数据类型是线程安全的（本身自带锁）：list类型.....
     
+    
+#### 线程锁（常见两种）
 
+##### （1）Lock 同步锁
 
+    不支持锁的嵌套，一嵌套：死锁
 
+##### （2） RLock 递归锁
+
+    这个支持，其他的和 Lock 一样
+    
+#### 线程池
+
+线程开太多了，反而可能性能下降（线程之间的上下文切换）
+
+解决方法：用线程池
+
+from concurrent.futures import ThreadPoolExecutor
+
+pool=ThreadPoolExecutor（100）
+
+pool.submit(函数名，参数1，参数2.........)  # 由线程池来安排给这个任务的线程
 
 
 
@@ -71,6 +109,10 @@ Python并发编程：串行 → 并行，提升执行效率
 #### 死锁
 
 https://blog.csdn.net/shanniuliqingming/article/details/120926413?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165720147516780357217689%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=165720147516780357217689&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-1-120926413-null-null.142^v32^down_rank,185^v2^control&utm_term=Python%20threading&spm=1018.2226.3001.4187
+
+Lock嵌套了：死锁
+
+线程互相竞争多把锁（一个线程握了一个其他线程需要的锁）：死锁
 
 
 
