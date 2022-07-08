@@ -97,11 +97,15 @@ Python并发编程：串行 → 并行，提升执行效率
 
 解决方法：用线程池
 
+```
+
 from concurrent.futures import ThreadPoolExecutor
 
 pool=ThreadPoolExecutor（100）
 
 pool.submit(函数名，参数1，参数2.........)  # 由线程池来安排给这个任务的线程
+
+```
 
 
 
@@ -112,7 +116,7 @@ https://blog.csdn.net/shanniuliqingming/article/details/120926413?ops_request_mi
 
 Lock嵌套了：死锁
 
-线程互相竞争多把锁（一个线程握了一个其他线程需要的锁）：死锁
+线程互相竞争多把锁（一个线程握了一个其他线程需要的锁）：死锁（即：互锁造成的）
 
 
 
@@ -125,3 +129,35 @@ Lock嵌套了：死锁
 #### pytorch优化器区别
 
 #### python的一些自动化框架包
+
+#### with 上下文管理
+
+#### 单例模式
+
+  单例模式：每次对类实例化，都用一个对象，不再新创建对象
+  
+  在多线程下-可能-会出问题
+  
+  可用加锁解决
+
+#### 闭包
+
+#### *args,**kwargs 目的
+
+#### Python类
+
+一般来说，要使用某个类的方法，需要先实例化一个对象再调用方法
+
+cls在python中表示类本身，self为类的一个实例
+
+```
+class F:
+
+  __init__（self,参数1,参数2....）
+
+  __new__(cls,*arg2,**kwargs)
+
+```
+
+在这其中，先执行new，创建实例化对象，再用__init__进行初始化
+
