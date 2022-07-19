@@ -205,10 +205,13 @@ class F:
 
     一个程序的多个进程共享一个资源的时候，需要加锁
     
-    进程锁可以当做参数传进创建进程中，线程锁不行！！！！！！
+    进程锁可以当做参数传进创建进程中（主进程里创建了这把锁，然后当参数传入子进程，此时所有进程共享一把锁），线程锁不行！！！！！！
     
     
+##### （3）进程池
+
+from concurrent.futures import ProcessPoolExecutor,ThreadPoolExecutor
     
-    
+--------concurrent模块--------
     
 
