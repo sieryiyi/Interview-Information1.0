@@ -20,7 +20,11 @@ SHOW TABLES;-- 查看当前数据库的表
 
 ```
 
+### 3、数据库命令（python）
+
 如果在Python下使用：需要用到 pyMySQL 包，与数据库进行连接
+
+简单来说！！！Python通过这个包，与数据库进行连接，通过这个连接，发送过去数据，那边数据库处理完了，会返回一个结果，得接收一下这个结果，才能在Python里输出，如下面的 show databases 操作
 
 ```
 import pymysql
@@ -37,3 +41,15 @@ result = curnor.fetchall()  # 获得指令结果
 print(result)
 
 ```
+
+另一点！！！在Python中，如果想对数据库进行 新增、删除、修改 操作，则需要额外加一个命令语句，如下！！！
+
+```
+curnor.execute("create database try1")
+conn.commit()  # 注意这句话！
+
+curnor.close()
+conn.close()  # 关闭数据库
+
+```
+
