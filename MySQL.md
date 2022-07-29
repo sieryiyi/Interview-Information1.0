@@ -167,3 +167,54 @@ DESC tb2;           -- 查询表的配置信息
 
 SELECT * FROM tb2;  -- 查询表的详细数据信息
 ```
+
+### 7、关于时间的数据列
+
+##### ①、datetime（存多少显示多少）
+
+	开发中用的多
+
+##### ②、timestamp
+
+	跟时区有关系
+
+
+### 8、对数据行进行增删改查
+
+##### ①、插入数据
+
+可以多行插入，即values后面多跟几个括号
+
+```
+	insert into 表名（列名1，列名2....） values（数据1，数据2.....）（数据1，数据2......）；
+```
+##### ②、删除数据
+
+```
+delete from 表名；
+
+delete from 表名 where 条件；
+
+如 delete from 表名 where name="123" and id＞1；也可以是or 或者大于号小于号等等
+
+```
+
+##### ③、修改数据
+
+```
+updata 表名 set 列名=值；
+
+如：update tb2 set age=age+1 where id=2;
+
+    update tb2 set name=concat(name,"123") where id=2;  --- concat函数，拼接字符串
+```
+
+##### ④、查询数据
+```
+select * from tb2;
+select id ,name  from tb2;
+
+select id ,name ,111 from tb2;  -- 查询出来的结果除了ID，name列，还会固定有一个111列
+select id ,name ,111 as age from tb2;  -- 在上面的基础，将111列显示为age列，但其中的数据还都是111
+
+select id ,name  from tb2 where 条件;
