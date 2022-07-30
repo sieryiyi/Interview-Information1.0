@@ -235,3 +235,65 @@ select id ,name  from tb2 where 条件;
 ```
 
 
+### 10、其他常用SQL语句
+
+主要对表的数据进行操作
+
+```
+--------------------------创建表-------------------------
+CREATE TABLE depart ( 
+	id int not null auto_increment PRIMARY KEY, 
+	title VARCHAR ( 16 ) not NULL 
+) DEFAULT CHARSET = utf8;
+
+CREATE table info (
+	id int not null auto_increment PRIMARY KEY,
+	name VARCHAR ( 16 ) not null,
+	email VARCHAR ( 32 ) not null,
+	age int,
+depart_id int 
+) DEFAULT CHARSET = utf8;
+```
+
+```
+-------------------------插入数据------------------------
+INSERT into depart(title) values("开发"),("运营"),("销售");
+
+DESC depart;
+
+INSERT into info(name,email,age,depart_id) values("小明","xiaoming@163.com",19,1);
+
+INSERT into info(name,email,age,depart_id) values("小红","xiaohong@163.com",49,1);
+INSERT into info(name,email,age,depart_id) values("小蓝","xiaolan@163.com",9,1);
+INSERT into info(name,email,age,depart_id) values("小绿","xiaolv@163.com",29,1);
+INSERT into info(name,email,age,depart_id) values("小白","xiaobai@163.com",39,1);
+INSERT into info(name,email,age,depart_id) values("小黑","xiaohei@163.com",49,1);
+INSERT into info(name,email,age,depart_id) values("小紫","xiaozi@163.com",49,1);
+INSERT into info(name,email,age,depart_id) values("小绿","xiaolv@163.com",99,1);
+
+SELECT * from info;  -- 查看表的全部内容
+
+UPDATE info set depart_id=2 where name ="小蓝";
+UPDATE info set depart_id=3 where name ="小白";
+
+```
+
+```
+------------------------查询语句------------------------
+
+SELECT * from info where age BETWEEN 20 and 50;                    -- between and 语句
+SELECT * from info where age in (29,19);                           -- in () 语句
+SELECT * from info where age not in (29,19);                       -- not in () 语句
+
+SELECT id  from info ;                                             -- 会显示所有在info表里出现过的id 
+SELECT * from info WHERE depart_id in (SELECT id from depart);     -- 子查询！！！！！！！！！
+
+SELECT * from info WHERE exists (SELECT * from depart where id=5);      -- exists 语句！当括号内的子查询成立时候，才会执行前面的查询操作，也有 not exists 语句
+
+SELECT * FROM  (SELECT * from info where id>5) as T where age>49;      -- 临时表 as T，在这个基础上继续查询
+
+SELECT * FROM  info,depart  WHERE info.id>2 and depart.id>1;           -- 同时查询两张表，结果目前存疑，待学习
+SELECT * FROM  info,depart  WHERE info.depart_id = depart.id;
+
+```
+
