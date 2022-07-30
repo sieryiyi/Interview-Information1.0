@@ -297,3 +297,59 @@ SELECT * FROM  info,depart  WHERE info.depart_id = depart.id;
 
 ```
 
+----------------------------通配符-----------------------------
+
+通配符搭配 like 使用
+
+①：百分号%，代表任意个字符
+
+②：下划线_：代表一个字符，当然也可以用多个下划线表示多个（数量固定的）字符
+
+下划线和百分号可以一起用，ps：效率很低，一般不用，真的大数据搜索的时候，需要用特定的组件进行搜索
+
+```
+SELECT * from info WHERE name like "_红";
+```
+
+--------------------------映射--------------------------
+
+```
+SELECT id as nm from info ;
+SELECT id as nm ,123 as age1 from info ;
+
+SELECT                                            -- 搜索嵌套
+	id ,
+	name ,
+	666 as num ,
+	(SELECT max(id ) from depart )as mid,     -- max 和 min 的应用
+	(SELECT min(id ) FROM depart )as nid,
+	age 
+FROM info;
+
+SELECT 
+id ,
+name ,
+666 as num ,
+(SELECT title from depart where depart.id =info.id)as x1,
+(SELECT title from depart where depart.id =info.depart_id)as x2,       -- 这条语句可以将两张有关联的表进行合并！！！
+age FROM info;
+
+上面那种将两张表关联起来的方法效率很低！！（虽然可以进行关联）
+
+------------------------------------- 条件-----------------------------
+
+SELECT 
+id ,
+name ,
+666 as num ,
+case depart_id when 1 then "第一部门" end v1,          -- 当 depart_id=1 的时候，显示为第一部门，否则为None，这一列叫 v1
+case depart_id when 1 then "第一部门"  else "其他"end v2,
+case depart_id when 1 then "第一部门"  when 2 then "第二部门" else "其他"end v3,
+
+case when age<30 then "少年" end v4,
+
+age 
+FROM info;
+
+```
+
