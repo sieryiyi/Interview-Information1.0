@@ -382,4 +382,39 @@ SELECT age , max(id),min(id),count(id ) ,sum(id),AVG(id) from info group by age;
 SELECT depart_id ,count(id) from info group by depart_id having count(id)>2;    -- 注意，如果想对分组后的结果再次进行筛选，不用where，而是要用having
 ```
 
-所以在查询数据的时候，优先级：where 条件 ＞ group by分组 ＞ having  order by 排序 ＞ limit 取部分!!!!!!!!!!
+所以在查询数据的时候，优先级：连表 join on ＞ where 条件 ＞ group by分组 ＞ having  order by 排序 ＞ limit 取部分!!!!!!!!!!
+
+
+### 11、左右连表操作
+
+在10中，用映射方法可以进行连表，但是效率比较低，如下：
+```
+SELECT 
+	id ,
+	(SELECT title from depart where depart.id =info.depart_id)as x2      -- 这条语句可以将两张有关联的表进行合并！！！
+FROM info;
+```
+
+常用的连表操作 left OUTER join 表示左边连接表，并且先出现的info表作为主表，连接条件接在on之后
+
+如果是right OUTER join ，则会将后面出现的表当做主表
+ 
+
+ 
+```
+SELECT * from 表1 left OUTER join 表2 on 条件; 
+ 
+SELECT * from info left OUTER join depart on info.depart_id=depart.id;  
+
+SELECT info.id,info.name,info.email,depart.title from info left OUTER join depart on info.depart_id=depart.id;
+
+```
+### 12、内连接
+
+```
+表 inner join 表 on 条件
+
+SELECT * from info INNER JOIN depart on info.depart_id=depart.id;
+```
+
+### 13、上下连表
