@@ -218,3 +218,16 @@ select id ,name ,111 from tb2;  -- 查询出来的结果除了ID，name列，还
 select id ,name ,111 as age from tb2;  -- 在上面的基础，将111列显示为age列，但其中的数据还都是111
 
 select id ,name  from tb2 where 条件;
+
+### 9、sql语句的安全问题
+
+不要用format 拼接语句，不然如果用户名输入的是' or 1=1 --，则拼接后会变成select * from tb1 where name ='' or 1=1 -- password='123
+
+后面--后的会被当成注释注释掉，这种情况，即使用户名是错的，也可以查看数据库中的所有信息
+
+改进方法：
+```
+	curnor.execute("select * from user where name=%s and password=%s",[123,456])
+	result=curnor.fetchall()
+	print(result)
+```
