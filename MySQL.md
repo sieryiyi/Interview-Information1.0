@@ -327,28 +327,29 @@ SELECT                                            -- 搜索嵌套
 FROM info;
 
 SELECT 
-id ,
-name ,
-666 as num ,
-(SELECT title from depart where depart.id =info.id)as x1,
-(SELECT title from depart where depart.id =info.depart_id)as x2,       -- 这条语句可以将两张有关联的表进行合并！！！
-age FROM info;
+	id ,
+	name ,
+	666 as num ,
+	(SELECT title from depart where depart.id =info.id)as x1,
+	(SELECT title from depart where depart.id =info.depart_id)as x2,       -- 这条语句可以将两张有关联的表进行合并！！！
+	age 
+FROM info;
 
 上面那种将两张表关联起来的方法效率很低！！（虽然可以进行关联）
 
 ------------------------------------- 条件-----------------------------
 
 SELECT 
-id ,
-name ,
-666 as num ,
-case depart_id when 1 then "第一部门" end v1,          -- 当 depart_id=1 的时候，显示为第一部门，否则为None，这一列叫 v1
-case depart_id when 1 then "第一部门"  else "其他"end v2,
-case depart_id when 1 then "第一部门"  when 2 then "第二部门" else "其他"end v3,
+	id ,
+	name ,
+	666 as num ,
+	case depart_id when 1 then "第一部门" end v1,          -- 当 depart_id=1 的时候，显示为第一部门，否则为None，这一列叫 v1
+	case depart_id when 1 then "第一部门"  else "其他"end v2,
+	case depart_id when 1 then "第一部门"  when 2 then "第二部门" else "其他"end v3,
 
-case when age<30 then "少年" end v4,
+	case when age<30 then "少年" end v4,
 
-age 
+	age 
 FROM info;
 
 ```
