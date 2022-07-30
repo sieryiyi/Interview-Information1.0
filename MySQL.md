@@ -354,3 +354,32 @@ FROM info;
 
 ```
 
+--------------------------------------------排序---------------------------------
+
+```
+SELECT * FROM info ORDER BY age desc;               --倒序
+SELECT * FROM info ORDER BY age asc;                --顺序
+
+SELECT * FROM info ORDER BY age,id asc;             -- 两列顺序排序
+```
+
+------------------------------------------取部分数据 LIMIT 5 -----------------------------
+
+```
+SELECT * FROM info ORDER BY age,id asc  LIMIT 5;           -- 只取排序后的前面5行
+
+SELECT * FROM info ORDER BY age,id asc  LIMIT 5 OFFSET 1;   -- 从第 1 行开始，向后取5条数据，不包括第一行
+```
+
+
+
+
+-------------------------------------------分组 group by-----------------------------
+
+```
+SELECT age , max(id),min(id),count(id ) ,sum(id),AVG(id) from info group by age;
+
+SELECT depart_id ,count(id) from info group by depart_id having count(id)>2;    -- 注意，如果想对分组后的结果再次进行筛选，不用where，而是要用having
+```
+
+所以在查询数据的时候，优先级：where 条件 ＞ group by分组 ＞ having  order by 排序 ＞ limit 取部分!!!!!!!!!!
